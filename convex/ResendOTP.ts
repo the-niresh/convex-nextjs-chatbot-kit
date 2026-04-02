@@ -35,7 +35,7 @@ export const ResendOTP = Email({
 
     const resend = new ResendAPI(provider.apiKey);
     const { error } = await resend.emails.send({
-      from: `${APP_NAME} <onboarding@resend.dev>`,
+      from: `${APP_NAME} <onboarding@yeahscene.com>`,
       to: [email],
       subject: `Your sign-in code: ${token}`,
       html: `
