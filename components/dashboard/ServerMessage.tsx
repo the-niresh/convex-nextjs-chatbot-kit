@@ -2,6 +2,7 @@
 
 import { StreamId } from "@convex-dev/persistent-text-streaming";
 import { useStream } from "@convex-dev/persistent-text-streaming/react";
+import { useAuthToken } from "@convex-dev/auth/react";
 import { api } from "../../convex/_generated/api";
 import { Doc } from "../../convex/_generated/dataModel";
 import { useMemo, useEffect, useRef } from "react";
@@ -31,6 +32,7 @@ export function ServerMessage({
       : `https://${convexSiteUrl}`;
   }, [convexSiteUrl]);
 
+  const authToken = useAuthToken();
   const patchAssistantText = useMutation(api.messages.patchAssistantTextClient);
 
   const shouldStream =
@@ -52,10 +54,11 @@ export function ServerMessage({
   }, [baseUrl, message._id, message.threadId]);
 
   const { text, status } = useStream(
-    api.chat.getChatBody,
+    api.streaming.getStreamBody,
     new URL(streamUrl.toString()),
     shouldStream,
-    message.responseStreamId as StreamId
+    message.responseStreamId as StreamId,
+    { authToken: authToken ?? undefined }
   );
 
   const isCurrentlyStreaming = useMemo(
@@ -99,6 +102,13 @@ export function ServerMessage({
       </span>
     );
   }
+
+  if (status === "error")
+    return (
+      <span className="text-destructive text-sm">
+        Failed to load response. Please try again.
+      </span>
+    );
 
   return text || message.text || <Loader />;
 }

@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 import { internal } from "./_generated/api";
 import {
-  action,
+  internalAction,
   internalMutation,
   mutation,
   query,
@@ -11,6 +11,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  ...(process.env.OPENAI_BASE_URL ? { baseURL: process.env.OPENAI_BASE_URL } : {}),
 });
 
 export const createThread = mutation({
@@ -75,12 +76,9 @@ export const listThreadsByUser = query({
   },
 });
 
-export const generateThreadTitle = action({
+export const generateThreadTitle = internalAction({
   args: { text: v.string(), threadId: v.id("threads") },
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) throw new Error("Unauthorized");
-
     try {
       const response = await openai.chat.completions.create({
         model: "gpt-4o-mini",

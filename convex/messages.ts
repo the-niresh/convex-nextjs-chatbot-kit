@@ -111,7 +111,7 @@ export const sendMessage = mutation({
       await ctx.db.patch(threadId, {
         title: `Chat — ${args.text.slice(0, 40)}`,
       });
-      await ctx.scheduler.runAfter(0, api.threads.generateThreadTitle, {
+      await ctx.scheduler.runAfter(0, internal.threads.generateThreadTitle, {
         text: args.text,
         threadId,
       });
