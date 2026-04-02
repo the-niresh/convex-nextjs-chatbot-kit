@@ -2,11 +2,6 @@ import { Email } from "@convex-dev/auth/providers/Email";
 import { Resend as ResendAPI } from "resend";
 import { RandomReader, generateRandomString } from "@oslojs/crypto/random";
 
-const allowedEmails = (process.env.AUTH_ALLOWED_EMAILS ?? "")
-  .split(",")
-  .map((e) => e.trim().toLowerCase())
-  .filter(Boolean);
-
 const APP_NAME =
   process.env.NEXT_PUBLIC_APP_NAME ?? "Convex Chatbot Kit";
 
@@ -26,13 +21,6 @@ export const ResendOTP = Email({
     return generateRandomString(random, alphabet, length);
   },
   async sendVerificationRequest({ identifier: email, provider, token }) {
-    const normalizedEmail = email.trim().toLowerCase();
-    if (allowedEmails.length > 0 && !allowedEmails.includes(normalizedEmail)) {
-      throw new Error(
-        "This email is not on the allowed list. Contact the administrator for access."
-      );
-    }
-
     const resend = new ResendAPI(provider.apiKey);
     const { error } = await resend.emails.send({
       from: `${APP_NAME} <onboarding@yeahscene.com>`,
