@@ -64,7 +64,7 @@ export default function ConversationComponent({
 
   if (!messages)
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <Loader size={24} />
       </div>
     );

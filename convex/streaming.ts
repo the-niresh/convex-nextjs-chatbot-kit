@@ -15,6 +15,7 @@ export const streamingComponent = new PersistentTextStreaming(
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  ...(process.env.OPENAI_BASE_URL ? { baseURL: process.env.OPENAI_BASE_URL } : {}),
 });
 
 const SYSTEM_PROMPT =
