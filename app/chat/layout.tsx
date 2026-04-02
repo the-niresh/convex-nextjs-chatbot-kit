@@ -31,7 +31,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { Plus, SquarePen } from "lucide-react";
+import { Github, Plus, SquarePen } from "lucide-react";
+import Link from "next/link";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const params = useParams();
@@ -145,6 +146,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           <div className="flex flex-1 justify-end gap-2 px-4">
             <ModeToggle />
+            <Link
+              href="https://github.com/the-niresh/convex-nextjs-chatbot-kit"
+              target="_blank"
+            >
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="hover:bg-accent"
+                title="View on GitHub"
+              >
+                <Github />
+              </Button>
+            </Link>
             <Button
               type="button"
               variant="outline"

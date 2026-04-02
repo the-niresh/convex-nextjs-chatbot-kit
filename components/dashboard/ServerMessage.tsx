@@ -52,7 +52,7 @@ export function ServerMessage({
   }, [baseUrl, message._id, message.threadId]);
 
   const { text, status } = useStream(
-    api.chat.getChatBody,
+    api.streaming.getStreamBody,
     new URL(streamUrl.toString()),
     shouldStream,
     message.responseStreamId as StreamId

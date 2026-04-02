@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Bot,
   Database,
+  Github,
   Lock,
   MessageSquare,
   Zap,
@@ -66,9 +67,10 @@ export default function HomePage() {
             <Link
               href="https://github.com/the-niresh/convex-nextjs-chatbot-kit"
               target="_blank"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              title="View on GitHub"
             >
-              GitHub
+              <Github className="h-4 w-4" />
             </Link>
             <Link href="/login">
               <Button size="sm" className="h-8 px-4 text-xs rounded-lg">
@@ -125,8 +127,9 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-11 rounded-xl px-6 text-sm font-medium"
+                className="h-11 rounded-xl px-6 text-sm font-medium gap-2"
               >
+                <Github className="h-4 w-4" />
                 View on GitHub
               </Button>
             </Link>

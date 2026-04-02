@@ -62,7 +62,12 @@ export default function ConversationComponent({
     if (messages) scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  if (!messages) return <Loader />;
+  if (!messages)
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Loader size={24} />
+      </div>
+    );
 
   return (
     <Conversation className="overflow-y-auto overscroll-none">
